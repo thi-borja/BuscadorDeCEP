@@ -2,9 +2,9 @@ package br.com.thborja.buscadorDeCep.teste;
 
 import br.com.thborja.buscadorDeCep.modelos.Endereco;
 import br.com.thborja.buscadorDeCep.modelos.EnderecoFormatado;
+import br.com.thborja.buscadorDeCep.modelos.GeradorDeArquivo;
 import com.google.gson.*;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -33,8 +33,8 @@ public class TesteBusca {
                 break;
             }
 
-            if (busca.length()<8 || busca.length()>9 ){
-                System.out.println("Insira um cep valido");
+            if (busca.length()<8 || busca.length()>9 || !busca.matches("^[0-9\\-]+$")){
+                System.out.println("CEP Inválido. Insira um cep válido.");
                 continue;
             }
 
@@ -55,14 +55,12 @@ public class TesteBusca {
 
                 listaDeBuscas.add(endFinal);
             } catch (NumberFormatException e) {
-                System.out.println("Aconteceu um erro.");
+                System.out.println("CEP Inválido. Insira um cep válido.");
                 e.printStackTrace();
             }
 
-            FileWriter escrita = new FileWriter("buscas.json");
+            GeradorDeArquivo.geraArquivo(listaDeBuscas);
 
-            escrita.write(gson.toJson(listaDeBuscas));
-            escrita.close();
         }
     }
 }

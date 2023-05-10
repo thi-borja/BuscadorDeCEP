@@ -1,23 +1,13 @@
 package br.com.thborja.buscadorDeCep.modelos;
 
 public class Endereco {
-    private String cep;
-    private String rua;
-    private String complemento;
-    private String bairro;
-    private String localidade;
-    private String estado;
-    private String ddd;
-
-    public Endereco(String cep, String rua, String complemento, String bairro, String localidade, String estado, String ddd) {
-        this.cep = cep;
-        this.rua = rua;
-        this.complemento = complemento;
-        this.bairro = bairro;
-        this.localidade = localidade;
-        this.estado = estado;
-        this.ddd = ddd;
-    }
+    private final String cep;
+    private final String rua;
+    private final String complemento;
+    private final String bairro;
+    private final String localidade;
+    private final String estado;
+    private final String ddd;
 
     public Endereco(EnderecoFormatado end) {
         this.cep = end.cep();
