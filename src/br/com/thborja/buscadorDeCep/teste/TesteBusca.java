@@ -20,8 +20,7 @@ public class TesteBusca {
         String busca = "";
 
         Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                .setPrettyPrinting()
+                .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
                 .create();
         List<Endereco> listaDeBuscas = new ArrayList<>();
 
@@ -48,11 +47,7 @@ public class TesteBusca {
             HttpResponse<String> response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
 
-            String json = response.body();
-            System.out.println(json);
-
-            EnderecoFormatado end = gson.fromJson(json, EnderecoFormatado.class);
-            System.out.println(end);
+            EnderecoFormatado end = gson.fromJson(response.body(), EnderecoFormatado.class);
 
             try {
                 Endereco endFinal = new Endereco(end);
@@ -65,6 +60,7 @@ public class TesteBusca {
             }
 
             FileWriter escrita = new FileWriter("buscas.json");
+
             escrita.write(gson.toJson(listaDeBuscas));
             escrita.close();
         }
